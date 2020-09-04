@@ -1,0 +1,16 @@
+<h1>Articles</h1>
+<input
+  id="search-box"
+  #searchBox
+  type="text"
+  (input)="search(searchBox.value)"
+/>
+<ul class="articles">
+  <li
+    *ngFor="let article of articles$ | async"
+    (click)="selectArticle(article.objectID)"
+  >
+    <input type="checkbox" class="checkbox" [checked]="article.selected" />
+    <span class="badge">{{ article.title }}</span>
+  </li>
+</ul>
