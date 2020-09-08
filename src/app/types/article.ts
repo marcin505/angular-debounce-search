@@ -28,7 +28,6 @@ export interface Hit {
   objectID: string;
   _highlightResult: HighlightResult;
   relevancy_score?: number;
-  selected: boolean;
 }
 
 export interface HighlightResult {

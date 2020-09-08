@@ -6,11 +6,12 @@
   (input)="search(searchBox.value)"
 />
 <ul class="articles">
-  <li
-    *ngFor="let article of articles$ | async"
-    (click)="selectArticle(article.objectID)"
-  >
-    <input type="checkbox" class="checkbox" [checked]="article.selected" />
-    <span class="badge">{{ article.title }}</span>
+  <li *ngFor="let article of articles$ | async">
+    <!-- <input type="checkbox" class="checkbox" [checked]="article.selected" />
+    <span class="badge">{{ article.title }}</span> -->
+    <app-article
+      [article]="article"
+      (clickEvent)="receiveArticle(article.objectID)"
+    ></app-article>
   </li>
 </ul>

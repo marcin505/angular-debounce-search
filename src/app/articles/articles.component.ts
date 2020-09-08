@@ -8,6 +8,7 @@ import {
   switchMap,
   map,
 } from 'rxjs/operators';
+// import Article  from '../article/article.component'
 
 @Component({
   selector: 'app-articles',
@@ -18,30 +19,30 @@ export class ArticlesComponent implements OnInit {
   articles$: Observable<Hit[]>;
   private searchTerms = new Subject<string>();
   constructor(private articlesService: ArticlesService) {}
-
+  selectedArticles = [];
   ngOnInit(): void {
-    // this.articlesService.getArticles('angular').subscribe(
-    //   (response: ArticlesResponse) =>
-    //     (this.articles$ = response.hits.map((hit) => ({
-    //       ...hit,
-    //       selected: false,
-    //     })))
-    // );
     this.articles$ = this.searchTerms.pipe(
       debounceTime(800),
       distinctUntilChanged(),
       switchMap((term: string) => this.articlesService.getArticles(term)),
       map((res) => res.hits)
     );
+    // this.articles$.subscribe((val) => console.log(36, val));
   }
 
   // selectArticle(objectID: string): void {
-  //   this.articles$ = this.articles$.map((article: Hit) => ({
-  //     ...article,
-  //     selected:
-  //       article.objectID === objectID ? !article.selected : article.selected,
-  //   }));
+  //   console.log(objectID);
+  //   // console.log(this.articles$);
+  //   this.articles$.subscribe({
+  //     next: (val) => console.log(val),
+  //   });
   // }
+  receiveArticle(objectID) {
+    console.log(41, objectID);
+    // this.selectedArticles.push(event);
+    // $event.preventDefault();
+    // $event.stopPropagation();
+  }
 
   search(term: string): void {
     this.searchTerms.next(term);
