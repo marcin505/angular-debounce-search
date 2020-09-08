@@ -37,7 +37,7 @@ export class ArticlesComponent implements OnInit {
   //     next: (val) => console.log(val),
   //   });
   // }
-  receiveArticle(objectID) {
+  receiveArticle(objectID: string) {
     console.log(41, objectID);
     // this.selectedArticles.push(event);
     // $event.preventDefault();

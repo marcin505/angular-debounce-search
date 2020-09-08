@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ArticlesResponse } from '../types/article';
 import { tap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ export class ArticlesService {
   constructor(private http: HttpClient) {}
 
   getArticles(query: string): Observable<ArticlesResponse> {
-    return this.http.get<ArticlesResponse>(`${this.url}?query=${query}`);
+    const params = new HttpParams().set('query', query);
+    return this.http.get<ArticlesResponse>(`${this.url}`, { params });
   }
 }
