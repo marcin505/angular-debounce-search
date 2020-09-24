@@ -1,8 +1,7 @@
-<div>
-  <input
-    type="checkbox"
-    class="checkbox"
-    (click)="sendArticle(article.objectID)"
-  />
+<li
+  [ngClass]="{ selected: isSelected, article: true }"
+  (click)="changeIds(article.objectID)"
+>
+  <input type="checkbox" class="checkbox" [checked]="isSelected" />
   <span class="badge">{{ article.title }}</span>
-</div>
+</li>

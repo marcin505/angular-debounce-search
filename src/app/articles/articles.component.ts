@@ -1,12 +1,13 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ArticlesService } from './../services/articles.service';
 import { ArticlesResponse, Hit } from '../types/article';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
   map,
+  toArray,
 } from 'rxjs/operators';
 // import Article  from '../article/article.component'
 
@@ -17,9 +18,10 @@ import {
 })
 export class ArticlesComponent implements OnInit {
   articles$: Observable<Hit[]>;
+  selectedIds: string[];
+
   private searchTerms = new Subject<string>();
   constructor(private articlesService: ArticlesService) {}
-  selectedArticles = [];
   ngOnInit(): void {
     this.articles$ = this.searchTerms.pipe(
       debounceTime(800),
@@ -27,21 +29,13 @@ export class ArticlesComponent implements OnInit {
       switchMap((term: string) => this.articlesService.getArticles(term)),
       map((res) => res.hits)
     );
-    // this.articles$.subscribe((val) => console.log(36, val));
+    this.articlesService.selectedIds.subscribe(
+      (selectedIds) => (this.selectedIds = selectedIds)
+    );
   }
 
-  // selectArticle(objectID: string): void {
-  //   console.log(objectID);
-  //   // console.log(this.articles$);
-  //   this.articles$.subscribe({
-  //     next: (val) => console.log(val),
-  //   });
-  // }
   receiveArticle(objectID: string) {
     console.log(41, objectID);
-    // this.selectedArticles.push(event);
-    // $event.preventDefault();
-    // $event.stopPropagation();
   }
 
   search(term: string): void {
