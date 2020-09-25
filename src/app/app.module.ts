@@ -10,6 +10,8 @@ import { ArticleComponent } from './article/article.component';
 import { ViewChildComponent } from './view-child/view-child.component';
 import { ChildComponent } from './child/child.component';
 import { SiblingComponent } from './sibling/sibling.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,14 @@ import { SiblingComponent } from './sibling/sibling.component';
     ViewChildComponent,
     ChildComponent,
     SiblingComponent,
+    ContactComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [DataService],
   bootstrap: [AppComponent],
 })
