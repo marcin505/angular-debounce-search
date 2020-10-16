@@ -1,3 +1,4 @@
+import { FormBuilderModuleModule } from './modules/form-builder-module/form-builder-module.module';
 import { DataService } from './data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -28,6 +29,7 @@ import { ContactComponent } from './contact/contact.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormBuilderModuleModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

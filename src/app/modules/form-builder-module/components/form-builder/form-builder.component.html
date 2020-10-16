@@ -1,0 +1,20 @@
+<h1>Form Builder:</h1>
+<form [formGroup]="profileForm">
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName" />
+  </label>
+
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName" />
+  </label>
+  <label>
+    Street:
+    <input type="text" formControlName="address.street" />
+  </label>
+  <button type="submit" [disabled]="!profileForm.valid" class="btn btn-success">
+    Save
+  </button>
+  <span class="badge">{{ profileForm.valid }}</span>
+</form>
