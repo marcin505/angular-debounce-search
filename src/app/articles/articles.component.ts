@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ArticlesService } from './../services/articles.service';
-import { ArticlesResponse, Hit } from '../types/article';
+import { Hit } from '../types/article';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import {
   debounceTime,
@@ -8,8 +8,8 @@ import {
   switchMap,
   map,
   toArray,
+  tap,
 } from 'rxjs/operators';
-// import Article  from '../article/article.component'
 
 @Component({
   selector: 'app-articles',
@@ -19,11 +19,13 @@ import {
 export class ArticlesComponent implements OnInit {
   articles$: Observable<Hit[]>;
   selectedIds: string[];
+  public term: string;
 
   private searchTerms = new Subject<string>();
-  constructor(private articlesService: ArticlesService) {}
+  constructor(public articlesService: ArticlesService) {}
   ngOnInit(): void {
-    this.articles$ = this.searchTerms.pipe(
+    this.articles$ = this.articlesService.searchTerms.pipe(
+      tap((val) => (this.term = val)),
       debounceTime(800),
       distinctUntilChanged(),
       switchMap((term: string) => this.articlesService.getArticles(term)),
@@ -33,12 +35,7 @@ export class ArticlesComponent implements OnInit {
       (selectedIds) => (this.selectedIds = selectedIds)
     );
   }
-
   receiveArticle(objectID: string) {
     console.log(41, objectID);
-  }
-
-  search(term: string): void {
-    this.searchTerms.next(term);
   }
 }

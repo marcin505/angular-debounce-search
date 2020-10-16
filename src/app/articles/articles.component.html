@@ -3,7 +3,7 @@
   id="search-box"
   #searchBox
   type="text"
-  (input)="search(searchBox.value)"
+  (input)="this.articlesService.setSearchTerms(searchBox.value)"
 />
 <span>{{ selectedIds }}</span>
 
@@ -18,5 +18,8 @@
   </ul>
   <p>
     {{ articles.length }}
+  </p>
+  <p>
+    {{ term }}
   </p>
 </ng-container>

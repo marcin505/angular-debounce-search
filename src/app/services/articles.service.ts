@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Observable, BehaviorSubject, of, Subject } from 'rxjs';
 import { ArticlesResponse } from '../types/article';
 import { tap, map, catchError } from 'rxjs/operators';
 
@@ -10,6 +10,7 @@ import { tap, map, catchError } from 'rxjs/operators';
 export class ArticlesService {
   private url = 'https://hn.algolia.com/api/v1/search';
   public selectedIds = new BehaviorSubject<string[]>([]);
+  public searchTerms = new Subject<string>();
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -35,5 +36,9 @@ export class ArticlesService {
         : [...this.selectedIds.value, id]
     );
     console.log(this.selectedIds.value);
+  }
+
+  setSearchTerms(term: string): void {
+    this.searchTerms.next(term);
   }
 }
