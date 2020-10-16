@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ObservablePlaygroundService } from '../../services/observable-playground.service';
 
 @Component({
   selector: 'app-form-builder',
@@ -8,8 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FormBuilderComponent implements OnInit {
   profileForm: FormGroup;
+  clickInterval: number;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private observablePlaygroundService: ObservablePlaygroundService
+  ) {}
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -22,5 +28,9 @@ export class FormBuilderComponent implements OnInit {
         zip: [''],
       }),
     });
+
+    this.observablePlaygroundService.clickInterval$.subscribe(
+      (val) => (this.clickInterval = val)
+    );
   }
 }

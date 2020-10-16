@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ObservablePlaygroundService } from '../modules/form-builder-module/services/observable-playground.service';
 
 @Component({
   selector: 'app-contact',
@@ -7,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./contact.component.less'],
 })
 export class ContactComponent implements OnInit {
+  clickInterval: number;
   text = 'contact page';
   contactForm: FormGroup;
   contact = {
@@ -16,7 +18,7 @@ export class ContactComponent implements OnInit {
   };
   submitted = false;
 
-  constructor() {
+  constructor(public observablePlaygroundService: ObservablePlaygroundService) {
     this.createForm();
   }
 
@@ -34,7 +36,11 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.observablePlaygroundService.clickInterval$.subscribe(
+      (val) => (this.clickInterval = val)
+    );
+  }
 
   onSubmit(): void {
     this.submitted = true;
