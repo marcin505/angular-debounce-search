@@ -17,6 +17,13 @@ export class FormBuilderComponent implements OnInit {
     private observablePlaygroundService: ObservablePlaygroundService
   ) {}
 
+  updateProfile() {
+    console.log('kura');
+    this.profileForm.patchValue({
+      firstName: 'Nancy',
+    });
+  }
+
   ngOnInit(): void {
     this.profileForm = this.fb.group({
       firstName: [null],

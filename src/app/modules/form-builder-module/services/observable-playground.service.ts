@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { fromEvent, interval, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { fromEvent, interval, Observable, timer } from 'rxjs';
+import { mapTo, startWith, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,5 @@ import { switchMap } from 'rxjs/operators';
 export class ObservablePlaygroundService {
   // public clickInterval: Observable;
   constructor() {}
-  clickInterval$ = fromEvent(document, 'click').pipe(
-    switchMap(() => interval(200))
-  );
+  clickInterval$ = interval(1000).pipe(startWith(0));
 }

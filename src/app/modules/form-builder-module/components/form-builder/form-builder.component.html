@@ -1,10 +1,10 @@
 <h1>Form Builder:</h1>
+{{ clickInterval }}
 <form [formGroup]="profileForm">
   <label>
     First Name:
     <input type="text" formControlName="firstName" />
   </label>
-
   <label>
     Last Name:
     <input type="text" formControlName="lastName" />
@@ -16,6 +16,8 @@
   <button type="submit" [disabled]="!profileForm.valid" class="btn btn-success">
     Save
   </button>
+  <br />
   <span class="badge">{{ profileForm.valid }}</span>
-  {{ clickInterval }}
+  <br />
+  <button (click)="updateProfile()">Some button</button>
 </form>
