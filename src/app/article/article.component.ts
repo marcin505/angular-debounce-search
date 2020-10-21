@@ -4,15 +4,22 @@ import { Hit } from '../types/article';
 
 @Component({
   selector: 'app-article',
-  templateUrl: './article.component.html',
+  template: `<li
+    [ngClass]="{ selected: isSelected, article: true }"
+    (click)="
+      articlesService.changeIds(article.objectID, article.title, isSelected)
+    "
+  >
+    <input type="checkbox" class="checkbox" [checked]="isSelected" />
+    <span class="badge">{{ article.title }}</span>
+  </li> `,
   styleUrls: ['./article.component.less'],
 })
 export class ArticleComponent {
   public selectedIds: string[];
   public isSelected: boolean;
   @Input() article: Hit;
-  @Output() clickEvent = new EventEmitter<string>();
-  constructor(private articlesService: ArticlesService) {}
+  constructor(public articlesService: ArticlesService) {}
 
   ngOnInit(): void {
     this.articlesService.selectedIds.subscribe((selectedIds: string[]) => {
@@ -21,13 +28,5 @@ export class ArticleComponent {
         (id: string) => id === this.article.objectID
       );
     });
-  }
-
-  sendArticle(objectID: string) {
-    this.clickEvent.emit(objectID);
-  }
-
-  changeIds(id: string) {
-    this.articlesService.changeIds(id);
   }
 }

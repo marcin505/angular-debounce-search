@@ -1,8 +1,16 @@
+import { notifications, ToasterService } from '../modules/toaster/';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject, of, Subject } from 'rxjs';
 import { ArticlesResponse } from '../types/article';
-import { tap, map, catchError } from 'rxjs/operators';
+
+const getFirstWords = (title: string): string => {
+  const firstWords = title.split(' ').reduce((acc, cur, index) => {
+    if (!index) return cur;
+    return index < 4 ? `${acc} ${cur}` : acc;
+  }, '');
+  return `${firstWords}...`;
+};
 
 @Injectable({
   providedIn: 'root',
@@ -19,25 +27,30 @@ export class ArticlesService {
     };
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private toasterService: ToasterService
+  ) {}
 
   getArticles(query: string): Observable<ArticlesResponse> {
     const params = new HttpParams().set('query', query);
     this.selectedIds.next([]);
     return this.http.get<ArticlesResponse>(`${this.url}`, { params });
-    // .pipe(catchError(this.handleError<ArticlesResponse>('getArticles')));
   }
 
-  changeIds(id: string) {
+  changeIds(id: string, title: string, isSelected: boolean) {
     const isIdPresent = this.selectedIds.value.find((x) => x === id);
+    this.toasterService.show(
+      isSelected ? notifications.WARNING : notifications.SUCCESS,
+      isSelected ? 'Warning!' : 'Success!',
+      `${getFirstWords(title)} got ${isSelected ? 'un' : ''}selected`
+    );
     this.selectedIds.next(
       isIdPresent
         ? this.selectedIds.value.filter((x) => x !== id)
         : [...this.selectedIds.value, id]
     );
-    console.log(this.selectedIds.value);
   }
-
   setSearchTerms(term: string): void {
     this.searchTerms.next(term);
   }

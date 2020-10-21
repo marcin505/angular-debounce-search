@@ -13,7 +13,24 @@ import {
 
 @Component({
   selector: 'app-articles',
-  templateUrl: './articles.component.html',
+  template: `<h1>Articles</h1>
+    <input
+      id="search-box"
+      #searchBox
+      type="text"
+      (input)="this.articlesService.setSearchTerms(searchBox.value)"
+    />
+
+    <ng-container *ngIf="articles$ | async as articles">
+      <ul class="articles">
+        <ng-container *ngFor="let article of articles">
+          <app-article
+            [article]="article"
+            (clickEvent)="receiveArticle(article.objectID)"
+          ></app-article>
+        </ng-container>
+      </ul>
+    </ng-container> `,
   styleUrls: ['./articles.component.less'],
 })
 export class ArticlesComponent implements OnInit {

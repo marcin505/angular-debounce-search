@@ -1,0 +1,8 @@
+<ng-container *ngIf="toasts">
+  <div class="toaster">
+    <ng-container *ngFor="let toast of toasts; let id = index">
+      <app-toast [toast]="toast" [id]="id" (remove)="remove($event)">
+      </app-toast>
+    </ng-container>
+  </div>
+</ng-container>

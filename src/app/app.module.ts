@@ -1,8 +1,8 @@
+import { ToasterModule } from './modules/toaster';
 import { FormBuilderModuleModule } from './modules/form-builder-module/form-builder-module.module';
 import { DataService } from './data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArticlesComponent } from './articles/articles.component';
@@ -30,6 +30,7 @@ import { ContactComponent } from './contact/contact.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormBuilderModuleModule,
+    ToasterModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent],
