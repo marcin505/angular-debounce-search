@@ -1,3 +1,5 @@
+import { RootStoreService } from './services/root-store.service';
+import { HeroesModule } from './modules/heroes/heroes.module';
 import { ToasterModule } from './modules/toaster';
 import { FormBuilderModuleModule } from './modules/form-builder-module/form-builder-module.module';
 import { DataService } from './data.service';
@@ -13,6 +15,9 @@ import { ChildComponent } from './child/child.component';
 import { SiblingComponent } from './sibling/sibling.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactComponent } from './contact/contact.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -31,8 +36,9 @@ import { ContactComponent } from './contact/contact.component';
     ReactiveFormsModule,
     FormBuilderModuleModule,
     ToasterModule,
+    BrowserAnimationsModule,
   ],
-  providers: [DataService],
+  providers: [DataService, RootStoreService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

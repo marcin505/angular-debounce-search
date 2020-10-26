@@ -16,9 +16,6 @@ export class ToasterComponent implements OnInit {
   ngOnInit(): void {
     this.toasterService.toast$.subscribe((toast) => {
       this.toasts = [toast, ...this.toasts];
-      // setTimeout(() => {
-      //   this.toasts = this.toasts.slice(0, -1);
-      // }, 5000);
       console.log(this.toasts);
     });
   }
