@@ -49,5 +49,6 @@ export class HeroesContainerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.heroesStoreService.setHeroes([]);
   }
 }

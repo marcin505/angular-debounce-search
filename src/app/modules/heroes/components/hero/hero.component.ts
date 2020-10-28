@@ -1,7 +1,7 @@
 import { HeroesStoreService } from './../../services/heroes-store.service';
 import { HeroService } from '@app/modules/heroes/services/hero.service';
 import { RootStoreService } from './../../../../services/root-store.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
     </ng-container> `,
   styleUrls: ['./hero.component.less'],
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent implements OnInit, OnDestroy {
   public loading: boolean;
   constructor(
     public rootStoreService: RootStoreService,
@@ -27,5 +27,9 @@ export class HeroComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.heroService.getHero(`${id}`).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.heroesStoreService.setHero(null);
   }
 }

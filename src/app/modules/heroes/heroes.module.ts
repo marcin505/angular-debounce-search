@@ -6,6 +6,7 @@ import { HeroesContainerComponent } from './components/heroes-container/heroes-c
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HeroComponent } from './components/hero/hero.component';
 import { HeroesStoreService } from './services/heroes-store.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [HeroesContainerComponent, HeroComponent],

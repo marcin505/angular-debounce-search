@@ -16,8 +16,7 @@ import { SiblingComponent } from './sibling/sibling.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactComponent } from './contact/contact.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -37,6 +36,7 @@ import { MatSliderModule } from '@angular/material/slider';
     FormBuilderModuleModule,
     ToasterModule,
     BrowserAnimationsModule,
+    MatSelectModule,
   ],
   providers: [DataService, RootStoreService],
   bootstrap: [AppComponent],
